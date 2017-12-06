@@ -11,15 +11,15 @@
 
 <nav class="navbar navbar-inverse">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{{ URL::to('sisabisa') }}">Beranda</a>
-  </div>
-  <ul class="nav navbar-nav">
-      <li><a href="{{ URL::to('sisabisa/history') }}">Riwayat Pengunjung</a></li>
-      <li><a href="{{ URL::to('sisabisa/create') }}">Tambahkan Pengunjung Harian</a>
-  </ul>
+        <a class="navbar-brand" href="{{ URL::to('sisabisa') }}">Lihat Stok</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a href="{{ URL::to('sisabisa/pengunjung') }}">Laporan Pengunjung</a></li>
+        <li><a href="{{ URL::to('sisabisa/create') }}">Tambah Komoditas Baru</a>
+    </ul>
 </nav>
 
-<h1>Riwayat Pengunjung</h1>
+<h1>Laporan Pengunjung</h1>
 
 <!-- will be used to show any messages -->
 @if (Session::has('message'))
@@ -32,19 +32,17 @@
             <td>ID Kunjungan</td>
             <td>Jumlah Pengunjung</td>
             <td>Hari</td>
-            <td>Bulan</td>
-            <td>Tahun</td>
+            <td>Tanggal</td>
         </tr>
     </thead>
     <tbody>
-    @foreach($sisabisas as $key => $value)
+    @foreach($pengunjungs as $key => $value)
+        @foreach($haris as $hari)
         <tr>
-            <td>{{ $value->ID_Pengunjung }}</td>
+            <td>{{ $value->id }}</td>
             <td>{{ $value->Jumlah_Pengunjung }}</td>
-            <td>{{ $value->Hari }}</td>
+            <td>{{ $hari }}</td>
             <td>{{ $value->Tanggal }}</td>
-            <td>{{ $value->Bulan }}</td>
-            <td>{{ $value->Tahun }}</td>
 
             <!-- we will also add show, edit, and delete buttons -->
             <td>
@@ -55,13 +53,11 @@
 
 
                 <!-- show the nerd (uses the show method found at GET /nerds/{id} -->
-                <a class="btn btn-small btn-success" href="{{ URL::to('nerds/' . $value->id) }}">Show this Nerd</a>
-
-                <!-- edit this nerd (uses the edit method found at GET /nerds/{id}/edit -->
-                <a class="btn btn-small btn-info" href="{{ URL::to('nerds/' . $value->id . '/edit') }}">Edit this Nerd</a>
+                
 
             </td>
         </tr>
+        @endforeach
     @endforeach
     </tbody>
 </table>

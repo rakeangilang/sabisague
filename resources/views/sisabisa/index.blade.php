@@ -11,11 +11,11 @@
 
 <nav class="navbar navbar-inverse">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{{ URL::to('sisabisa') }}">Stok Komoditas</a>
+      <a class="navbar-brand" href="{{ URL::to('sisabisa') }}">Lihat Stok</a>
   </div>
   <ul class="nav navbar-nav">
-      <li><a href="{{ URL::to('sisabisa/history') }}">Riwayat Pengunjung</a></li>
-      <li><a href="{{ URL::to('sisabisa/create') }}">Tambahkan Pengunjung Harian</a>
+      <li><a href="{{ URL::to('sisabisa/pengunjung') }}">Laporan Pengunjung</a></li>
+      <li><a href="{{ URL::to('sisabisa/create') }}">Tambah Komoditas Baru</a>
   </ul>
 </nav>
 
@@ -37,7 +37,7 @@
     <tbody>
     @foreach($sisabisas as $key => $value)
         <tr>
-            <td>{{ $value->ID_Komoditas }}</td>
+            <td>{{ $value->id }}</td>
             <td>{{ $value->Nama }}</td>
             <td>{{ $value->Stok }}</td>
 
@@ -46,10 +46,18 @@
 
                 <!-- delete the nerd (uses the destroy method DESTROY /nerds/{id} -->
                 <!-- we will add this later since its a little more complicated than the other two buttons -->
+                {{ Form::open(array('url' => 'sisabisa/' . $value->id, 'class' => 'pull-right')) }}
+                    {{ Form::hidden('_method', 'DELETE') }}
+                    {{ Form::submit('Hapus Komoditas', array('class' => 'btn btn-warning')) }}
+                {{ Form::close() }}
 
 
 
                 <!-- show the nerd (uses the show method found at GET /nerds/{id} -->
+
+
+                <!-- edit this nerd (uses the edit method found at GET /nerds/{id}/edit -->
+                <a class="btn btn-small btn-info" href="{{ URL::to('sisabisa/' . $value->id . '/edit') }}">Ubah Stok</a>
 
             </td>
         </tr>

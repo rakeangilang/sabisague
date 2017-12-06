@@ -12,8 +12,7 @@
 */
 
 Route::resource('sisabisa', 'SabisaController');
-
-Route::resource('nerds','NerdController');
+Route::resource('pengunjung', 'PengunjungController');
 
 
 
