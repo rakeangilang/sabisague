@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 use App\Models\TabelKunjungan;
+use Session, Redirect;
 use View;
 
 class PengunjungController extends Controller
@@ -18,13 +20,13 @@ class PengunjungController extends Controller
   {
     // get all the nerds
       $pengunjungs = TabelKunjungan::all();
-      $haris = TabelKunjungan::all()
-                     ->DATENAME(weekday, getdate())
-                     ->get();
+      //$haris = TabelKunjungan::all()
+        //             ->DATENAME('weekday', getdate())
+          //           ->get();
 
     // load the view and pass the nerds
       return View::make('sisabisa.history')
-          ->with('pengunjungs', $pengunjungs)->with('haris', $haris);
+          ->with('pengunjungs', $pengunjungs);
   }
 
   public function create()
@@ -35,8 +37,11 @@ class PengunjungController extends Controller
   public function store()
   {
       $rules = array(
-          'nama'       => 'required',
-          'stok'      => 'required'
+          'hari'       => 'required',
+          'tanggal'      => 'required',
+          'bulan'      => 'required',
+          'tahun'      => 'required',
+          'jumlah'      => 'required'
       );
       $validator = Validator::make(Input::all(), $rules);
 
@@ -47,14 +52,17 @@ class PengunjungController extends Controller
               ->withInput(Input::except('password'));
       } else {
           // store
-          $sisabisa = new TabelKunjungan;
-          $sisabisa->Nama       = Input::get('nama');
-          $sisabisa->Stok      = Input::get('stok');
-          $sisabisa->save();
+          $pengunjung = new TabelKunjungan;
+          $pengunjung->Hari       = Input::get('hari');
+          $pengunjung->Tanggal       = Input::get('tanggal');
+          $pengunjung->Bulan       = Input::get('bulan');
+          $pengunjung->Tahun       = Input::get('tahun');
+          $pengunjung->Jumlah_Pengunjung      = Input::get('jumlah');
+          $pengunjung->save();
 
           // redirect
-          Session::flash('message', 'Komoditas Baru Berahasil Ditambahkan');
-          return Redirect::to('sisabisa');
+          Session::flash('message', 'Riwayat Kunjungan Berahasil Ditambahkan');
+          return Redirect::to('pengunjung');
       }
     }
 
@@ -69,11 +77,11 @@ class PengunjungController extends Controller
 
   public function edit($id)
   {
-      $sisabisa = TabelKunjungan::find($id);
+      $pengunjung = TabelKunjungan::find($id);
 
       // show the edit form and pass the nerd
       return View::make('sisabisa.histedit')
-          ->with('sisabisa', $sisabisa);
+          ->with('pengunjung', $pengunjung);
   }
 
   public function update($id)

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator; ?>
 
 <html>
 <head>
-    <title>Look! I'm CRUDding</title>
+    <title>SI Sabisa Farm</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Validator; ?>
         <a class="navbar-brand" href="{{ URL::to('sisabisa') }}">Lihat Stok</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="{{ URL::to('sisabisa/pengunjung') }}">Laporan Pengunjung</a></li>
         <li><a href="{{ URL::to('sisabisa/create') }}">Tambah Komoditas Baru</a>
+      <li><a href="{{ route('pengunjung.index') }}">Laporan Pengunjung</a></li>
+      <li><a href="{{ URL::to('pengunjung/create') }}">Tambah Riwayat Kunjungan</a></li>
     </ul>
 </nav>
 
@@ -32,12 +33,12 @@ use Illuminate\Support\Facades\Validator; ?>
 
     <div class="form-group">
         {{ Form::label('nama', 'Nama') }}
-        {{ Form::text('nama', Input::old('nama'), array('class' => 'form-control')) }}
+        {{ Form::text('nama', Input::old('nama'), array('class' => 'form-control', 'placeholder' => 'Nama komoditas')) }}
     </div>
 
     <div class="form-group">
         {{ Form::label('stok', 'Stok') }}
-        {{ Form::text('stok', Input::old('stok'), array('class' => 'form-control')) }}
+        {{ Form::number('stok', Input::old('stok'), array('class' => 'form-control', 'placeholder' => 'Stok komoditas')) }}
     </div>
 
     {{ Form::submit('Tambah', array('class' => 'btn btn-primary')) }}

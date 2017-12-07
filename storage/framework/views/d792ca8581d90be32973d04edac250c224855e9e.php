@@ -14,8 +14,9 @@
         <a class="navbar-brand" href="<?php echo e(URL::to('sisabisa')); ?>">Lihat Stok</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="<?php echo e(URL::to('sisabisa/pengunjung')); ?>">Laporan Pengunjung</a></li>
         <li><a href="<?php echo e(URL::to('sisabisa/create')); ?>">Tambah Komoditas Baru</a>
+      <li><a href="<?php echo e(route('pengunjung.index')); ?>">Laporan Pengunjung</a></li>
+      <li><a href="<?php echo e(URL::to('pengunjung/create')); ?>">Tambah Riwayat Kunjungan</a></li>
     </ul>
 </nav>
 
@@ -33,16 +34,19 @@
             <td>Jumlah Pengunjung</td>
             <td>Hari</td>
             <td>Tanggal</td>
+            <td>Bulan</td>
+            <td>Tahun</td>
         </tr>
     </thead>
     <tbody>
     <?php $__currentLoopData = $pengunjungs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <?php $__currentLoopData = $haris; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $hari): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <tr>
             <td><?php echo e($value->id); ?></td>
             <td><?php echo e($value->Jumlah_Pengunjung); ?></td>
-            <td><?php echo e($hari); ?></td>
+            <td><?php echo e($value->Hari); ?></td>
             <td><?php echo e($value->Tanggal); ?></td>
+            <td><?php echo e($value->Bulan); ?></td>
+            <td><?php echo e($value->Tahun); ?></td>
 
             <!-- we will also add show, edit, and delete buttons -->
             <td>
@@ -57,7 +61,6 @@
 
             </td>
         </tr>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </tbody>
 </table>

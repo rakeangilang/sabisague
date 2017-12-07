@@ -12,7 +12,7 @@
 */
 
 Route::resource('sisabisa', 'SabisaController');
-Route::resource('pengunjung', 'PengunjungController');
+Route::resource('pengunjung', 'PengunjungController', ['names' => ['index' => 'pengunjung.index']]);
 
 
 

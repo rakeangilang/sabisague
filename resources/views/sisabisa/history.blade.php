@@ -14,8 +14,9 @@
         <a class="navbar-brand" href="{{ URL::to('sisabisa') }}">Lihat Stok</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="{{ URL::to('sisabisa/pengunjung') }}">Laporan Pengunjung</a></li>
         <li><a href="{{ URL::to('sisabisa/create') }}">Tambah Komoditas Baru</a>
+      <li><a href="{{ route('pengunjung.index') }}">Laporan Pengunjung</a></li>
+      <li><a href="{{ URL::to('pengunjung/create') }}">Tambah Riwayat Kunjungan</a></li>
     </ul>
 </nav>
 
@@ -33,16 +34,19 @@
             <td>Jumlah Pengunjung</td>
             <td>Hari</td>
             <td>Tanggal</td>
+            <td>Bulan</td>
+            <td>Tahun</td>
         </tr>
     </thead>
     <tbody>
     @foreach($pengunjungs as $key => $value)
-        @foreach($haris as $hari)
         <tr>
             <td>{{ $value->id }}</td>
             <td>{{ $value->Jumlah_Pengunjung }}</td>
-            <td>{{ $hari }}</td>
+            <td>{{ $value->Hari }}</td>
             <td>{{ $value->Tanggal }}</td>
+            <td>{{ $value->Bulan }}</td>
+            <td>{{ $value->Tahun }}</td>
 
             <!-- we will also add show, edit, and delete buttons -->
             <td>
@@ -57,7 +61,6 @@
 
             </td>
         </tr>
-        @endforeach
     @endforeach
     </tbody>
 </table>
